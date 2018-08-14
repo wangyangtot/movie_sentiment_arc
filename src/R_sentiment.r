@@ -1,6 +1,6 @@
-libraray(syuzhet)
-path_to_load<-"/Users/yangyangwang/Documents/gutenberg/imsdb_scripts/scraping/texts/"
-path_to_save<-"/Users/yangyangwang/Documents/gutenberg/imsdb_scripts/normed_sentiment/"
+library(syuzhet)
+path_to_load<-"/Users/yangyangwang/Movie_sentiment_arc/data/springField_scraping/texts_in_imdb/"
+path_to_save<-"/Users/yangyangwang/Movie_sentiment_arc/data/springField_scraping/normed_sentiment/"
 file_names=list.files(path = path_to_load,recursive = TRUE)
 i<-1
 for (file in file_names) {
