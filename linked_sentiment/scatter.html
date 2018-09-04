@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+		.axis path, .axis line {
+			fill: none;
+			stroke: black;
+			shape-rendering: crispEdges;
+		}
+ 
+		.axis text {
+			font-family: sans-serif;
+			font-size: 11px;
+		}
+    </style>
+</head>
+ 
+<body>
+	
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<script>
+	var w = 500;
+	var h =500;
+	var marginLine = {top: 40, right: 10, bottom: 20, left: 50};
+	var full_dataset = []; // 坐标点数据集合
+	var xRange = Math.random() * 1000; // x坐标的范围
+	var yRange = Math.random() * 1000; // y坐标的范围
+	var num = 100; // 点的个数
+	var padding = 50; // 描点区域距离svg边界的间距
+
+d3.csv("sentiment_2d.csv", function(data) {
+		//console.log(data);
+	for (var i=0; i < data.length; i++){
+		 full_dataset[i] = {
+      num: data[i].num,
+      cluster:data[i].cluster,
+      x:+data[i].x,
+      y:+data[i].y,}
+  }
+	
+	console.log(full_dataset);
+
+ 	var xScale = d3.scale.linear().domain([
+    d3.min(full_dataset, function(d) {
+      return +d.x;
+    }),
+    d3.max(full_dataset, function(d) {
+      return +d.x;
+    })
+  ]).range([ marginLine.left, w - marginLine.right - marginLine.left ]);
+
+ 	var yScale = d3.scale.linear().domain([
+    d3.min(full_dataset, function(d) {
+      return +d.y-1;
+    }),
+    d3.max(full_dataset, function(d) {
+      return +d.x;
+    })
+  ]).range([ h - marginLine.bottom,marginLine.top] );
+
+
+
+
+ 
+	
+ 
+
+	var svg2= d3.select('body')
+				.append('svg')
+				.attr({
+					'width': w,
+					'height': h,
+					)};
+ 
+	// 圆点半径的线性比例尺
+ 
+	// 创建svg并插入到body中
+	var svg = d3.select('body')
+				.append('svg')
+				.attr({
+					'width': w,
+					'height': h,
+					//'viewBox': "0 0 1000 1000" 
+				})
+				.attr("transform", "translate(" + (marginLine.left + 500)  +  ",0)") ;
+ 
+	// 创建散列点并依据数据集合为点设置属性
+	svg.selectAll('circle')
+		.data(full_dataset)
+		.enter()
+		.append('circle')
+		.attr({
+			'cx': function(d) {
+				return xScale(+d.x);
+			},
+			'cy': function(d) {
+				return yScale(+d.y);
+			},
+			'r':10,
+		})
+		.style("fill", function(d){
+        if (d.cluster === "group0"){
+                return "red";}
+        else if (d.cluster === "group1") {
+            return "orange";
+        }
+        else if (d.cluster === "group2")
+            return "blue"
+        else if (d.cluster === "group3")
+            return "green"
+        else if (d.cluster === "group4")
+            return "pink"
+        else if (d.cluster === "group5")
+            return "black"
+    })
+ 
+	// x轴
+	var xAxis = d3.svg.axis()
+					.scale(xScale)
+					.orient('bottom');
+	// 描绘x轴并设置样式和位置
+	svg.append('g')
+		.attr('class', 'axis')
+		.attr('transform', 'translate(0,' + (h - padding) + ')')
+		.call(xAxis);
+ 
+	// y轴
+	var yAxis = d3.svg.axis()
+					.scale(yScale)
+					.orient('left');
+	// 描绘y轴并设置样式和位置
+	svg.append('g')
+		.attr('class', 'axis')
+		.attr('transform', 'translate(' + padding + ' ,0)')
+		.call(yAxis);
+		});
+</script>
+</body>
+<html>
