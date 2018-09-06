@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1"/>
+    <title>MoodPlay</title>
+</head>
+
+<body>
+
+
+  <!-- ARTIST SIDEBAR (RIGHT SIDE) -->
+  <div class="ui wide sidebar right inverted vertical menu" id="artist_sidebar">
+    <div class="item">
+      <i class="close icon link" id="artist_sidebar_close"></i>
+      <h2 class="ui inverted header" id="sidebar_header">
+        <div class="content" id="sidebar_header_text"></div>
+        <div class="sub header" id="sidebar_subheader">Popular Songs
+        </div>
+      </h2>
+      <div class="content">
+        <div class="ui fluid inverted accordion" id="mood_accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Mood distribution
+          </div>
+          <div class="content">
+            <p>
+              <i class="bar chart blue icon link" onclick="toggle_chart(0)" id="bar_chart_icon"></i>
+              <i class="pie chart icon link" onclick="toggle_chart(1)" id="aster_chart_icon"></i>
+            </p>
+
+            <div id="distribution_bar_chart"></div>
+            <div id="distribution_aster_chart"></div>
+          </div>
+        </div>
+        <div id="sidebar_spotify_content"></div>
+      </div>
+      <div class="other content">
+        <a id="sidebar_lastfm">Artist</a>'s site in last.fm
+      </div>
+    </div>
+    <div class="borderless item">
+      <div class="content" id="sidebar_our_content">
+      </div>
+    </div>
+
+    <div class="ui dimmer" id="sidebar_dimmer">
+      <div class="ui text loader">Loading</div>
+    </div>
+  </div>
+
+  <!-- END ARTIST SIDEBAR -->
+
+  <!-- TIMELINE SIDEBAR (BOTTOM) -->
+  <div class="ui bottom inverted sidebar borderless menu overlay" id="timeline_sidebar">
+    <!-- <div class="item">
+      Visited
+    </div> -->
+  </div>
+  <!-- END TIMELINE SIDEBAR -->
+
+
+
+  <div class="ui container pusher" id="main_container">
+    <div class="ui dimmer" id="main_container_loader">
+      <div class="ui text loader">Loading</div>
+    </div>
+
+    <div id="top_controls">
+      <!-- SEARCH BAR -->
+      <div class="ui search" id="artist_search">
+        <div class="ui mini icon inverted input">
+          <input class="prompt" type="text" placeholder="Search artist...">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
+
+      <!-- LABELS -->
+      <div class="ui container" id="labels_container">
+        <a class="ui mini label popup_info green_back" onclick="switch_color(this);" data-html="<b>Sublimity</b> includes this feelings:
+        <br><i>Peacefulness<br>Nostalgic<br>Transcendence<br>Wonder<br>Tenderness</i>">Sublimity</a>
+        <a class="ui mini label popup_info red_back" onclick="switch_color(this);" data-html="<b>Unease</b> includes this feelings:
+        <br><i>Repulsive<br>Lethargy<br>Sadness<br>Fear<br>Tension</i>">Unease</a>
+        <a class="ui mini label popup_info white_back" onclick="switch_color(this);" data-html="<b>Style</b> includes this feelings:<br><i>Fancy<br>Cerebral<br>Mechanical<br></i>">Style</a>
+        <a class="ui mini label popup_info blue_back" onclick="switch_color(this);" data-html="<b>Vitality</b> includes this feelings:<br><i>Joyful activation<br>Power</i>">Vitality</a>
+      </div>
+
+    </div>
+
+
+    <div id="left_controls">
+      <!-- BUTTONS -->
+      <div id="buttons">
+        <div class="ui small white fluid label" id="zoom_ptg" disabled>100%</div>
+        <button class="ui small icon grey button popup_info" id="zoom_in">
+            <i class="plus icon"></i>
+        </button>
+        <button class="ui small icon grey button popup_info" id="zoom_out">
+            <i class="minus icon"></i>
+        </button>
+        <button class="ui small icon grey button popup_info" id="zoom_rst" data-content="Reset zoom level">
+            <i class="refresh icon"></i>
+        </button>
+        <button class="ui small icon grey button popup_info" id="examples" data-content="Show examples on the map">
+            <i class="marker icon"></i>
+        </button>
+        <button class="ui small icon grey button popup_info" id="fisheye" data-content="Toggle fisheye on map">
+            <i class="eye icon"></i>
+        </button>
+        <button class="ui small icon grey button popup_info" id="colorize" data-content="Colorize map">
+            <i class="eyedropper icon"></i>
+        </button>
+
+        <!-- <button class="ui small icon grey button popup_info" id="bci" data-content="Recieve data from BCI">
+            <i class="street view icon"></i>
+        </button> -->
+      </div>
+
+      <!-- SLIDER -->
+      <div class="ui grid" id="slider_grid">
+        <div class="centered row">
+          <h4 class="ui center aligned inverted header">LDA-b</h4>
+        </div>
+        <div class="centered row" id="slider_holder">
+          <div class="ui vertical inverted grey range"></div>
+        </div>
+        <div class="centered row">
+          <h4 class="ui center aligned inverted header">t-SNE-a</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- STREAM CHART -->
+    <div class="ui container" id="stream_chart_container">
+      <div id="stream_chart_holder">
+        <svg id="stream_chart"></svg>
+      </div>
+    </div>
+
+    <!-- CREDITS -->
+    <div id="credits_container">
+      <p>Based on Ivana Andjelkovic's Moodplay: <a target='_blank' href="http://www.mat.ucsb.edu/~ivana/moodplay.html">article</a> &amp; <a target='_blank' href="http://dl.acm.org/citation.cfm?id=2930280">ÄCM DL link</a></p>
+    </div>
+  </div>
+
+
+
+</body>
